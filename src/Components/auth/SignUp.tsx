@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import Joi from "joi";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { handleRequest } from "../../services/apiService";
+import { authRequest } from "../../services/apiService";
 import { IErrors } from "./Login";
 
 function SignUp() {
@@ -55,7 +55,7 @@ function SignUp() {
         },
 
         onSubmit: values => {
-            const res = handleRequest('users/signUp', values);
+            const res = authRequest('users/signUp', values);
             res.then(res => res.json())
             .then(json => {
                 if(json.error){
