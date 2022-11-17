@@ -23,13 +23,11 @@ module.exports = {
         try {
             const user = await User.findOne({ email: value.email });
             if (!user){
-                res.status(401).send({error:'Email Or Password are incorrect'});
-                throw Error;
+               return res.status(401).send({error:'Email Or Password are incorrect'});
             } 
             const validPassword = await bcrypt.compare(value.password, user.password);
             if (!validPassword) {
-                res.status(401).send({error:'Email or Password are incorrect'});
-                throw 'Invalid password';
+                return res.status(401).send({error:'Email or Password are incorrect'});
             }
 
             const param = { email: value.email };
