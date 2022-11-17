@@ -8,6 +8,8 @@ async function (endPoint: string, data: object): Promise<Response> {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'x-auth-token': getToken(),
+
             },
             body: JSON.stringify(data)
         });
