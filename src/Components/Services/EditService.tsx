@@ -36,8 +36,8 @@ function EditService() {
         },
 
         // all values from fields as JSON object
-        onSubmit: values => {
-            const res = patchRequest(`services/${service._id}`, values);
+        onSubmit: values => {            
+            const res = patchRequest(`services/${service.userServiceID}`, values);
             res.then(res => res.json())
             .then(json => {
                 if(json.error){

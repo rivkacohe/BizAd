@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import { handleRequest, getRequest } from "../../services/apiService";
+import { handleRequest, getRequest, deleteRequest } from "../../services/apiService";
 import { getUserId } from "../../services/auth";
 import Title from "../Title/Title";
 import Service, { ServiceType } from "./Service/Service";
@@ -12,10 +12,10 @@ interface IErrors {
 
 function Services() {
     const [servicesForUser, setServicesForUser] = useState<Array<ServiceType>>([]);
-    const [services, setServices] = useState<Array<string>>(['mailinglist','whatsup group notification']);
+    const [services, setServices] = useState<Array<string>>(['mailinglist', 'whatsup group notification']);
     const user = getUserId();
     const statuses = ['active', 'disabled']
-    
+
     const formik = useFormik({
 
         initialValues: {
@@ -42,12 +42,12 @@ function Services() {
                 res.then(res => res.json())
                     .then(json => {
                         setServicesForUser([...servicesForUser, json]);
-                        setServices([...services].filter(service=> service!==json.serviceName));
+                        setServices([...services].filter(service => service !== json.serviceName));
                     })
             }
-            await res.catch(err=>{
+            await res.catch(err => {
                 console.log(err);
-                
+
             })
         },
     });
@@ -63,20 +63,17 @@ function Services() {
     }, [])
 
 
-    function deleteService(id: string, service:string) {        
-        fetch('http://localhost:3000/services/', {
-            method: 'delete',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ userServiceID: id, servicName: service })
-        })
-            .then(res => res.json())
-            .then(json => {                
-                const updated = [...servicesForUser].filter(service => service.userServiceID !== json.userServiceID);
-                setServicesForUser(updated)
-                setServices([...services,service])
-            })
+    function deleteService(id: string, service: string) {
+        const res = deleteRequest('services', id, service);
+        if (res) {
+            res.then(res => res.json())
+                .then(json => {
+                    const updated = [...servicesForUser].filter(service => service.userServiceID !== json.userServiceID);
+                    setServicesForUser(updated)
+                    setServices([...services, service])
+                })
+        }
+
     }
 
     return (

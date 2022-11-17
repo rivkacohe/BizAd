@@ -15,6 +15,18 @@ async function (endPoint: string, data: object): Promise<Response> {
         });
     }
 
+    export const authRequest =
+async function (endPoint: string, data: object): Promise<Response> {
+        return fetch(`${serverUrl}${endPoint}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        });
+    }
+
+    
 export const patchRequest =
     function (endPoint: string, data: object): Promise<Response> {
 
@@ -41,3 +53,17 @@ export const getRequest =
             }
                 })
     }
+
+    
+export const deleteRequest =
+function (endPoint: string, id: string, service:string): Promise<Response> {
+
+    return fetch(`${serverUrl}${endPoint}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-auth-token': getToken(),
+        },
+        body: JSON.stringify({ userServiceID: id, servicName: service })
+    });
+}
