@@ -38,17 +38,14 @@ function EditService() {
         // all values from fields as JSON object
         onSubmit: values => {
             const res = patchRequest(`services/${service._id}`, values);
-  
-            res.then(res =>{
-                if (res.ok){
-                    navigate('/services');
-                    setErrorMsg('');
+            res.then(res => res.json())
+            .then(json => {
+                if(json.error){
+                    setErrorMsg(json.error);
+                    return;
                 }
-            }).catch(err=>{
-                console.log(err);
-                
-                setErrorMsg(err);
-            })
+                navigate('/services');
+            });
         },
     });
 
@@ -111,9 +108,6 @@ function EditService() {
             }
 
             </div>
-
-           
-
         </form>
 
 

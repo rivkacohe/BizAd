@@ -7,8 +7,6 @@ import { IErrors } from "./Login";
 
 function SignUp() {
     const [errorMsg, setErrorMsg] = useState('');
-    // const [email, setEmail] = useState('');
-    // const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const inputRef = useRef<null | HTMLInputElement>(null);
 
@@ -22,7 +20,6 @@ function SignUp() {
 
     const formik = useFormik({
 
-        // assign default value to field
         initialValues: {
             name: '',
             email: '',
@@ -59,19 +56,17 @@ function SignUp() {
 
         onSubmit: values => {
             const res = handleRequest('users/signUp', values);
-
-            res.then  (res => {
-                // console.log('registered');
-                if (res.ok){
-                    navigate('/login');
+            res.then(res => res.json())
+            .then(json => {
+                if(json.error){
+                    setErrorMsg(json.error);
+                    return;
                 }
-                else{
-                    setErrorMsg('Something went wrong')
-                    console.error(errorMsg);
-                }
-            });
+                navigate('/login');
+            })
         },
     });
+
     return (
         <>
            <form

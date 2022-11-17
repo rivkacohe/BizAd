@@ -41,7 +41,6 @@ function Menu(props: MenuProps) {
         setBizToSearch(biz);
     }
 
-    // conditional rendering - if no dishes display an empty page
 
     return (
         <>

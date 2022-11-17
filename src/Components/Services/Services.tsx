@@ -60,14 +60,6 @@ function Services() {
                     setServicesForUser(json);
                 })
         }
-
-
-        // fetch('http://localhost:3000/services/')
-        //     .then(res => res.json())
-        //     .then(json => {
-        //         const names = json.map((s: any) => s.name);
-        //         setServices(names.filter(s=> service!==json.serviceName));
-        //     })
     }, [])
 
 

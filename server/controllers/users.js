@@ -16,15 +16,21 @@ module.exports = {
 
         if (error) {
             console.log(error.details[0].message);
-            res.status(401).send('Unauthorized');
+            res.status(401).send({error:'Unauthorized'});
             return;
         }
 
         try {
             const user = await User.findOne({ email: value.email });
-            if (!user) throw Error;
+            if (!user){
+                res.status(401).send({error:'Email Or Password are incorrect'});
+                throw Error;
+            } 
             const validPassword = await bcrypt.compare(value.password, user.password);
-            if (!validPassword) throw 'Invalid password';
+            if (!validPassword) {
+                res.status(401).send({error:'Email or Password are incorrect'});
+                throw 'Invalid password';
+            }
 
             const param = { email: value.email };
             console.log(config);
@@ -39,7 +45,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            res.status(400).send('Invalid data.');
+            res.status(400).send({error:'server error'});
         }
     },
 
@@ -55,14 +61,14 @@ module.exports = {
 
         if (error) {
             console.log(error.details[0].message);
-            res.status(400).send('error sign up new user');
+            res.status(400).send({error:'Validation error'});
             return;
         }
 
         try {
             const user = await User.findOne({ email: value.email });
             if (user) {
-                return res.status(400).send("User already registered.");
+                return res.status(400).send({error:"User already registered."});
             }
 
             const hash = await bcrypt.hash(value.password, 10);
@@ -83,7 +89,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err.message);
-            res.status(400).send('error sign up new user');
+            res.status(400).send({error:'Server error'});
         }
     },
 }

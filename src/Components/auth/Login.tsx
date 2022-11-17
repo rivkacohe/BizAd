@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import { useFormik } from "formik";
@@ -16,6 +16,7 @@ function Login() {
 
     const navigate = useNavigate();
     const inputRef = useRef<null | HTMLInputElement>(null);
+    const [errorMsg, setErrorMsg] = useState('');
 
     useEffect(() => {
         if (inputRef && inputRef.current) {
@@ -25,7 +26,6 @@ function Login() {
 
     const formik = useFormik({
 
-        // assign default value to field
         initialValues: {
             email: '',
             password: '',
@@ -58,9 +58,18 @@ function Login() {
 
             res.then(res => res.json())
                 .then(json => {
+                    if(json.error){
+                        setErrorMsg(json.error);
+                        return;
+                    }
                     localStorage.setItem(TOKEN_KEY, json.token);
                     localStorage.setItem(USER_ID, json.id);
                     navigate('/');
+                })
+
+
+                res.catch(json=>{
+                    console.log( json.error);
                 })
         },
     });
@@ -119,6 +128,13 @@ function Login() {
             className="btn btn-primary btn-lg w-100">
             Login
         </button>
+
+        {
+            (errorMsg.length>1) && (
+                <div className="text-danger">
+                    {errorMsg}</div>
+            ) 
+        }
     </form>
 
     );

@@ -53,8 +53,7 @@ module.exports = {
 
         if (error) {
             console.log(error.details[0].message);
-            res.status(401).send('Not found');
-            return;
+            return res.status(400).send({error:"Server error"});
         }
 
 
@@ -62,7 +61,7 @@ module.exports = {
         try {
             const service = await ServicesForUser.findOne({userServiceID: value.userServiceID});
             if (service) {
-                return res.status(400).send("service already Exist.");
+                return res.status(400).send({error:"service already Exist."});
             }
             
             const newService = new ServicesForUser({
@@ -83,9 +82,9 @@ module.exports = {
             })
         }
         catch (err) {
-            // console.log(err.message);
-            console.log(JSON.stringify(err._message, undefined, 2));        }
-            
+            console.log(err.message);
+            res.status(400).send({error:'Server error'});
+        }
     },
 
     deleteService: async function (req, res, next) {
@@ -112,8 +111,9 @@ module.exports = {
                 ...req.body,
                 id: req.params.id
             });
+
             if (error) {
-                res.status(400).send('invalid data');
+                res.status(400).send({error:'error update service'});
                 return;
             }
 
@@ -122,11 +122,13 @@ module.exports = {
                 req.body
             );
 
-            res.json(result);
+            if (!result){
+                res.status(400).send({error:'error update service'});
+            }
         }
         catch (err) {
             console.log(err);
-            res.status(400).send('error update service');
+            res.status(400).send({error:'error update service'});
         }
     },
 }
