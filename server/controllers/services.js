@@ -118,7 +118,7 @@ module.exports = {
             }
 
             const result = await ServicesForUser.findOneAndUpdate(
-                { _id: value._id },
+                { id: value.id },
                 req.body
             );
 
