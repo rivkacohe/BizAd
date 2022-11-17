@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import Cards, { CardType } from "./Cards/Cards";
 import Title from "../Title/Title";
 import "./Menu.css";
+import { getRequest } from "../../services/apiService";
 
 export type displayMode = 'grid' | 'list';
 
@@ -18,13 +19,14 @@ function Menu(props: MenuProps) {
 
 
     useEffect(() => {
-        
-            fetch('http://localhost:3000/cards/')
-            .then(res => res.json())
+        const res= getRequest('cards');
+        if (res){
+            res.then(res => res.json())
             .then(json => {
                 setCards(json);
                 setFiltered(json)
             });
+        }
     },[]);
 
     function changeDisplay(mode: displayMode) {

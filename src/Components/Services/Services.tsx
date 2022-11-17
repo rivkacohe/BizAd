@@ -63,7 +63,7 @@ function Services() {
     }, [])
 
 
-    function deleteUser(id: string, service:string) {        
+    function deleteService(id: string, service:string) {        
         fetch('http://localhost:3000/services/', {
             method: 'delete',
             headers: {
@@ -170,7 +170,7 @@ function Services() {
                             <Service
                                 key={service.userServiceID}
                                 data={service}
-                                delete={deleteUser}
+                                delete={deleteService}
                             />
                         )}
                 </tbody>

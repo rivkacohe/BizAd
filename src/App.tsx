@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import About from './Components/About/About';
 import Login from './Components/auth/Login';
