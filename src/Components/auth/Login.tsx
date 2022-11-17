@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Joi from "joi";
 import { useFormik } from "formik";
-import { handleRequest } from "../../services/apiService";
+import { authRequest } from "../../services/apiService";
 import { TOKEN_KEY, USER_ID } from "../../services/auth";
 import "./form.css"
 
@@ -54,7 +54,7 @@ function Login() {
         },
 
         onSubmit: values => {
-            const res = handleRequest('users/login', values);
+            const res = authRequest('users/login', values);
 
             res.then(res => res.json())
                 .then(json => {
