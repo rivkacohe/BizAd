@@ -118,13 +118,16 @@ module.exports = {
             }
 
             const result = await ServicesForUser.findOneAndUpdate(
-                { id: value.id },
+                { _id: value.id},
                 req.body
             );
 
             if (!result){
                 res.status(400).send({error:'error update service'});
             }
+
+            res.json(result);
+
         }
         catch (err) {
             console.log(err);
