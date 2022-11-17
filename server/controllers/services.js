@@ -66,7 +66,7 @@ module.exports = {
             }
             
             const newService = new ServicesForUser({
-                _id: value.status,
+                _id: value._id,
                 serviceName: value.serviceName,
                 userId: value.userId,
                 status: value.status,
