@@ -22,7 +22,10 @@ Business Advertising with React.
     * Install dependencies for the Server:  
     `cd server`  
     `npm install`
-    * Install the following packages: joi, bcrypt, jsonwebtoken
+    * Install the following packages: joi, bcrypt, jsonwebtoken:
+    `npm i joi`
+    `npm i bcrypt`
+    `npm i jsonwebtoken`
 3. Install dependencies for React client:  
     `npm install`
     * Install the following packages: bootstrap, bootstrp-icons, react-router-dom, formik 
@@ -33,7 +36,7 @@ Business Advertising with React.
 ## Run The App
 > Make sure mongo server is running.
 
-1. Run the server - `cd client`, then:
+1. Run the server - `cd server`, then:
     * Windows: `set DEBUG=bizAd:*; & npm start`
     * MacOS/Linux: `DEBUG=bizAd:* npm start`
 2. Run the client:  
