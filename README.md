@@ -12,7 +12,7 @@ Business Advertising with React.
 
 
 ## Prepare The Environment
-1. Create a new MongoDB database with a cards, serviscs, servicesforusers and users collections
+1. Create a new MongoDB database with a cards, services, servicesforusers and users collections
 2. Clone project in vscode: `https://github.com/rivkacohe/BizAd.git`
 
 ## Project Installation
