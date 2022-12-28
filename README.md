@@ -32,6 +32,8 @@ Business Advertising with React.
     `npm i bootstrap bootstrap-icons`
     `npm i react-router-dom @types/react-router-dom`
     `npm install formik --save`
+    `npm i joi @types/hapi__joi`
+
 
 ## Run The App
 > Make sure mongo server is running.
